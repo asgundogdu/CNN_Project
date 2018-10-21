@@ -9,9 +9,7 @@ test_x, test_y = get_data_set("test")
 x, y, output, y_pred_cls, global_step, learning_rate = model()
 
 
-_BATCH_SIZE = 128
-_CLASS_SIZE = 10
-_SAVE_PATH = 'model/trial4/'
+save_dir = 'model/trial4/'
 
 
 saver = tf.train.Saver()
@@ -20,7 +18,7 @@ sess = tf.Session()
 
 try:
     print("\nTrying to restore last checkpoint ...")
-    last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=_SAVE_PATH)
+    last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
     saver.restore(sess, save_path=last_chk_path)
     print("Restored checkpoint from:", last_chk_path)
 except ValueError:
@@ -30,18 +28,19 @@ except ValueError:
 
 def main():
     i = 0
-    predicted_class = np.zeros(shape=len(test_x), dtype=np.int)
-    while i < len(test_x):
-        j = min(i + _BATCH_SIZE, len(test_x))
-        batch_xs = test_x[i:j, :]
-        #batch_ys = test_y[i:j, :]
-        predicted_class[i:j] = sess.run(y_pred_cls, feed_dict={x: batch_xs})
-        i = j
+    predicted_class = np.zeros(shape=len(test_x[0]), dtype=np.int)
+    sess.run(y_pred_cls, feed_dict={x: batch_xs})
+    # while i < len(test_x):
+    #     j = min(i + _BATCH_SIZE, len(test_x))
+    #     batch_xs = test_x[i:j, :]
+    #     #batch_ys = test_y[i:j, :]
+    #     predicted_class[i:j] = sess.run(y_pred_cls, feed_dict={x: batch_xs})
+    #     i = j
 
     # correct = (np.argmax(test_y, axis=1) == predicted_class)
     # acc = correct.mean() * 100
     # correct_numbers = correct.sum()
-    print()
+    print(test_y[0])
     # print("Accuracy on Test-Set: {0:.2f}% ({1} / {2})".format(acc, correct_numbers, len(test_x)))
     print(predicted_class)
 
