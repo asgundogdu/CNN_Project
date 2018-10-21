@@ -81,13 +81,13 @@ def model():
 
 
 def lr(epoch):
-    learning_rate = 1e-3
-    if epoch > 80:
+    learning_rate = 1e-2#1e-3
+    if epoch > 70:
         learning_rate *= 0.5e-3
-    elif epoch > 60:
+    elif epoch > 50:
         learning_rate *= 1e-3
-    elif epoch > 40:
-        learning_rate *= 1e-2
     elif epoch > 20:
-        learning_rate *= 0.5e-2#1e-1
+        learning_rate *= 1e-2
+    elif epoch > 10:
+        learning_rate *= 1e-1
     return learning_rate
