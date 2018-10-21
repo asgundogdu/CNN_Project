@@ -81,6 +81,18 @@ def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
 
     print(result[0][0].shape)
 
+    filters = 32
+    fig = plt.figure()
+    plt.figure(1, figsize=(32,32))
+    n_columns = 6
+    n_rows = 6
+
+    for i in range(filters):
+        plt.subplot(n_rows, n_columns, i+1)
+        plt.title('Filter ' + str(i))
+        plt.plot(result[0,:,:,i], interpolation="nearest", cmap="gray")
+    plt.savefig('CONV_rslt.png')
+
 
 # def restore_see_layer(ix,model_name=None,var_name=None):
 #     with tf.Session('', tf.Graph()) as s:
