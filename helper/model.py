@@ -84,10 +84,10 @@ def lr(epoch):
     learning_rate = 1e-3
     if epoch > 70:
         learning_rate *= 0.5e-3
-    elif epoch > 50:
+    elif epoch > 60:
         learning_rate *= 1e-3
-    elif epoch > 30:
+    elif epoch > 40:
         learning_rate *= 1e-2
-    elif epoch > 25:
+    elif epoch > 20:
         learning_rate *= 1e-1
     return learning_rate

@@ -155,8 +155,57 @@ def train(epoch):
     print("-"*120)
 
 
+def freeze_graph(model_dir, output_node_names):
+	if not tf.gfile.Exists(model_dir):
+        raise AssertionError(
+            "Export directory doesn't exists. Please specify an export "
+            "directory: %s" % model_dir)
+
+    if not output_node_names:
+        print("You need to supply the name of a node to --output_node_names.")
+        return -1
+
+    # We retrieve our checkpoint fullpath
+    checkpoint = tf.train.get_checkpoint_state(model_dir)
+    input_checkpoint = checkpoint.model_checkpoint_path
+
+     # We precise the file fullname of our freezed graph
+    absolute_model_dir = "/".join(input_checkpoint.split('/')[:-1])
+    output_graph = absolute_model_dir + "/frozen_model.pb"
+
+    # We clear devices to allow TensorFlow to control on which device it will load operations
+    clear_devices = True
+
+    # We start a session using a temporary fresh Graph
+    with tf.Session(graph=tf.Graph()) as sess:
+        # We import the meta graph in the current default Graph
+        saver = tf.train.import_meta_graph(input_checkpoint + '.meta', clear_devices=clear_devices)
+
+        # We restore the weights
+        saver.restore(sess, input_checkpoint)
+
+        # We use a built-in TF helper to export variables to constants
+        output_graph_def = tf.graph_util.convert_variables_to_constants(
+            sess, # The session is used to retrieve the weights
+            tf.get_default_graph().as_graph_def(), # The graph_def is used to retrieve the nodes 
+            output_node_names.split(",") # The output node names are used to select the usefull nodes
+        ) 
+
+        # Finally we serialize and dump the output graph to the filesystem
+        with tf.gfile.GFile(output_graph, "wb") as f:
+            f.write(output_graph_def.SerializeToString())
+        print("%d ops in the final graph." % len(output_graph_def.node))
+
+    return output_graph_def
+
+
 def main():
     train_start = time()
+
+    #parser = argparse.ArgumentParser()
+    #parser.add_argument("--model_dir", type=str, default="", help="Model folder to export")
+    #parser.add_argument("--output_node_names", type=str, default="", help="The name of the output nodes, comma separated.")
+    #args = parser.parse_args()
 
     for i in range(eopch_num):
         print("\nEpoch: {}/{}\n".format((i+1), eopch_num))
@@ -166,6 +215,10 @@ def main():
     minutes, seconds = divmod(rem, 60)
     mes = "Best accuracy pre session: {:.2f}, time: {:0>2}:{:0>2}:{:05.2f}"
     print(mes.format(global_accuracy, int(hours), int(minutes), seconds))
+
+    [print(n.name) for n in tf.get_default_graph().as_graph_def().node]
+
+    freeze_graph("./model/trial4/", "fully_connected_layer/softmax")
 
 
 if __name__ == "__main__":
