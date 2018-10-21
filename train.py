@@ -47,14 +47,14 @@ except ValueError:
     sess.run(tf.global_variables_initializer())
 
 def train(epoch):
-    try:
-        # print("\nTrying to restore last checkpoint ...")
-        last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
-        saver.restore(sess, save_path=last_chk_path)
-        # print("Restored checkpoint from:", last_chk_path)
-    except ValueError:
-        # print("\nFailed to restore checkpoint. Initializing variables instead.")
-        sess.run(tf.global_variables_initializer())
+    # try:
+    #     # print("\nTrying to restore last checkpoint ...")
+    #     last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
+    #     saver.restore(sess, save_path=last_chk_path)
+    #     # print("Restored checkpoint from:", last_chk_path)
+    # except ValueError:
+    #     # print("\nFailed to restore checkpoint. Initializing variables instead.")
+    #     sess.run(tf.global_variables_initializer())
 
     global epoch_start
     global global_accuracy
@@ -232,4 +232,4 @@ def run_train():
 #     main()
 
 
-sess.close()
+    sess.close()
