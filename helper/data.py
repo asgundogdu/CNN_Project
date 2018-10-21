@@ -34,7 +34,7 @@ def get_data_set(name="train"):
     if name is "train":
         for file in os.listdir("cifar/train"):
             if file.endswith(".png"):
-                X = scipy.misc.imread(file)
+                X = scipy.misc.imread("cifar/train/"+file)
                 X = X.astype(float)
                 X = np.array(X, dtype=float) / 255.0
                 X = X.reshape([-1, 3, 32, 32])
@@ -72,7 +72,7 @@ def get_data_set(name="train"):
     elif name is "test":
         for file in os.listdir("cifar/test"):
             if file.endswith(".png"):
-                X = scipy.misc.imread(file)
+                X = scipy.misc.imread("cifar/test/"+file)
                 X = X.astype(float)
                 X = np.array(X, dtype=float) / 255.0
                 X = X.reshape([-1, 3, 32, 32])
