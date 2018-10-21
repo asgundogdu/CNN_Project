@@ -33,7 +33,12 @@ except ValueError:
 
 
 def infer(im):
+    saver = tf.train.Saver()
+    sess = tf.Session()
 
+    last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
+    saver.restore(sess, save_path=last_chk_path)
+    
     image = scipy.misc.imread(im)
     image = image.astype(float)
     image = np.array(image, dtype=float) / 255.0
