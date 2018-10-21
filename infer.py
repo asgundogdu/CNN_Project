@@ -61,12 +61,6 @@ def infer(im):
 
 
 def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
-    x, y, output, y_pred_cls, global_step, learning_rate = model()
-
-
-    save_dir = 'model/trial4/'
-
-
     saver = tf.train.Saver()
     sess = tf.Session()
 
