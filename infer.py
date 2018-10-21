@@ -68,35 +68,24 @@ def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
     #image = image.transpose([0, 2, 3, 1])
     image = image.reshape(-1, 32*32*3)
 
-    graph = tf.get_default_graph()
-    features = graph.get_tensor_by_name('conv1_layer/conv2d/Conv2D:0')
-    #features_values = sess.run(features)
+    base_model = 'model/trial4'
 
-    result = sess.run(features, feed_dict={x: image})
-
-    print(features_values)
-    print(features_values.shape)
+    output_cl1 = restore_see_layer(ix=test_img,model_name=base_model,var_name='conv1_layer/conv2d/Conv2D')
+    print(output_cl1.shape)
 
 
-    # with tf.Session('', tf.Graph()) as s:
-        # with s.graph.as_default():
-            # if (model_name!=None) and var_name!=None:
-    # saver = tf.train.import_meta_graph(model_name+".meta")
-    # saver.restore(s,model_name)
-    # fd={'Input:0':ix,'train_test:0':False}
-    # var_name=var_name+":0"
-    # result = sess.run(var_name,feed_dict=fd)
-    # return result
-
-    # units = layer.eval(session=sess,feed_dict={x:np.reshape(stimuli,[1,32*32*3],order='F'),keep_prob:1.0})
-
-    # filters = units.shape[3]
-    # plt.figure(1, figsize=(20,20))
-    # for i in xrange(0,filters):
-        # plt.subplot(7,6,i+1)
-        # plt.title('Filter ' + str(i))
-        # plt.imshow(units[0,:,:,i], interpolation="nearest", cmap="gray")
-    # plt.savefig('CONV_rslt.png')
+def restore_see_layer(ix,model_name=None,var_name=None):
+    with tf.Session('', tf.Graph()) as s:
+        with s.graph.as_default():
+            if (model_name!=None) and var_name!=None:
+                # saver = tf.train.import_meta_graph(model_name+"/-25024.meta")
+                last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
+                saver.restore(s, save_path=last_chk_path)
+                # saver.restore(s,model_name)
+                fd={'x:0':ix,'train_test:0':False}
+                var_name=var_name+":0"
+                result = s.run(var_name,feed_dict=fd)
+    return result
 
 # def main():
 #     infer('cifar/test/0_cat.png')
