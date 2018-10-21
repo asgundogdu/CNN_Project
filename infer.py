@@ -49,8 +49,8 @@ def infer(im):
     #     #batch_ys = test_y[i:j, :]
     #     predicted_class[i:j] = sess.run(y_pred_cls, feed_dict={x: batch_xs})
     #     i = j
-    class_names = {'airplane':0,'automobile':1,'bird':2,'cat':3,'deer':4,'dog':5,'frog':6,'horse':7,'ship':8,'truck':9}
-    class_names = {y:x for x,y in class_names.iteritems()}
+    class_names = {0:'airplane',1:'automobile',2:'bird',3:'cat',4:'deer',5:'dog',6:'frog',7:'horse',8:'ship',9:'truck'}
+    # class_names = {y:x for x,y in class_names.iteritems()}
     # correct = (np.argmax(test_y, axis=1) == predicted_class)
     # acc = correct.mean() * 100
     # correct_numbers = correct.sum()
