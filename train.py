@@ -216,7 +216,7 @@ def main():
 
     [print(n.name) for n in tf.get_default_graph().as_graph_def().node]
 
-    freeze_graph("./model/trial4/", "fully_connected_layer/softmax")
+    freeze_graph("./model/trial4/", "ArgMax_1")
 
 
 if __name__ == "__main__":
