@@ -35,7 +35,7 @@ def model():
             activation=tf.nn.relu
         )
         pool = tf.layers.max_pooling2d(conv, pool_size=[2, 2], strides=2, padding='SAME')
-        drop = tf.layers.dropout(pool, rate=0.25, name=scope.name)
+        drop = tf.layers.dropout(pool, rate=0.3, name=scope.name)
 
     with tf.variable_scope('conv2_layer') as scope:
         conv = tf.layers.conv2d(
@@ -48,13 +48,13 @@ def model():
         pool = tf.layers.max_pooling2d(conv, pool_size=[2, 2], strides=2, padding='SAME')
         conv = tf.layers.conv2d(
             inputs=pool,
-            filters=128,
+            filters=256,
             kernel_size=[2, 2],
             padding='SAME',
             activation=tf.nn.relu
         )
         pool = tf.layers.max_pooling2d(conv, pool_size=[2, 2], strides=2, padding='SAME')
-        drop = tf.layers.dropout(pool, rate=0.25, name=scope.name)
+        drop = tf.layers.dropout(pool, rate=0.3, name=scope.name)
 
     with tf.variable_scope('fully_connected_layer') as scope:
         flat = tf.reshape(drop, [-1, 4 * 4 * 128])

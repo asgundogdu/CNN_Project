@@ -17,7 +17,7 @@ epoch_start = 0
 
 # Parametes
 batch_size_ = 128
-eopch_num = 60
+eopch_num = 80
 save_dir = "./model/trial4/"
 
 # Loss function and optimizer
@@ -53,9 +53,9 @@ def train(epoch):
     batch_size = int(math.ceil(len(train_x) / batch_size_))
     i_global = 0
 
-    for s in range(batch_size):
-        batch_xs = train_x[s*batch_size_: (s+1)*batch_size_]
-        batch_ys = train_y[s*batch_size_: (s+1)*batch_size_]
+    for batch in range(batch_size):
+        batch_xs = train_x[batch * batch_size_: (s+1)*batch_size_]
+        batch_ys = train_y[batch * batch_size_: (s+1)*batch_size_]
 
         start_time = time()
         i_global, _, batch_loss, batch_acc = sess.run(
@@ -64,18 +64,18 @@ def train(epoch):
         duration = time() - start_time
 
 
-        if s % 10 == 0:
-            percentage = int(round((s/batch_size)*100))
+        # if s % 10 == 0:
+        #     percentage = int(round((s/batch_size)*100))
 
-            bar_len = 29
-            filled_len = int((bar_len*int(percentage))/100)
-            bar = '=' * filled_len + '>' + '-' * (bar_len - filled_len)
+        #     bar_len = 29
+        #     filled_len = int((bar_len*int(percentage))/100)
+        #     bar = '=' * filled_len + '>' + '-' * (bar_len - filled_len)
 
 
-            msg = "Global step: {:>5} - [{}] {:>3}% - acc: {:.4f} - loss: {:.4f} - {:.1f} sample/sec"
-            print(msg.format(i_global, bar, percentage, batch_acc, batch_loss, batch_size_ / duration))
+        #     msg = "Global step: {:>5} - [{}] {:>3}% - acc: {:.4f} - loss: {:.4f} - {:.1f} sample/sec"
+        #     print(msg.format(i_global, bar, percentage, batch_acc, batch_loss, batch_size_ / duration))
 
-    print('#'*30)
+    # print('#'*120)
 
 	# Compute Training Accuracy
     i = 0
@@ -109,8 +109,8 @@ def train(epoch):
     correct = (np.argmax(test_y, axis=1) == predicted_class)
     test_acc = correct.mean()*100    
 
-    msg = "Training Accuracy: {:.4f} - Test Accuracy: {:.4f}"
-    print(msg.format(train_acc, test_acc))
+    msg = "Epoch {} - Training Accuracy: {:.4f} - Test Accuracy: {:.4f}"
+    print(msg.format((epoch+1), train_acc, test_acc))
     
 
     #########################################################################################
@@ -152,7 +152,7 @@ def train(epoch):
     elif global_accuracy == 0:
         global_accuracy = acc
 
-    print("-"*30)
+    print("-"*120)
 
 
 def main():
