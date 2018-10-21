@@ -1,8 +1,8 @@
 import numpy as np
 import tensorflow as tf
 
-from include.data import get_data_set
-from include.model import model
+from helper.data import get_data_set
+from helper.model import model
 
 
 test_x, test_y = get_data_set("test")
