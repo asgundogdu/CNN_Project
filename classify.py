@@ -1,4 +1,4 @@
-import sys
+import sys, os
 import infer
 
 
@@ -9,7 +9,7 @@ def main():
     print(run_type)
 
     if run_type=='train':
-        os.system('python train.py')
+        os.system('python3 train.py')
 
     elif run_type=='test':
         infer.infer(sys.argv[2])
