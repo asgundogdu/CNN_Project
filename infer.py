@@ -56,9 +56,8 @@ def main():
     # correct = (np.argmax(test_y, axis=1) == predicted_class)
     # acc = correct.mean() * 100
     # correct_numbers = correct.sum()
-    print(result[0])
-    # print("Accuracy on Test-Set: {0:.2f}% ({1} / {2})".format(acc, correct_numbers, len(test_x)))
-    print('Cat -- should be 3!')
+	print(result[0])
+	print('Cat -- should be 3!')
 
 if __name__ == "__main__":
     main()
