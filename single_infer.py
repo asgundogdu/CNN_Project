@@ -77,8 +77,8 @@ def main():
         with sess.as_default():
             saver = tf.train.import_meta_graph("{}.meta".format(checkpoint_file))
             saver.restore(sess,checkpoint_file)
-            input = graph.get_operation_by_name("input").outputs[0]
-            prediction=graph.get_operation_by_name("prediction").outputs[0]
+            input = graph.get_operation_by_name("main_parameters/Input").outputs[0]
+            prediction=graph.get_operation_by_name("ArgMax").outputs[0]
             #newdata=put your data here
             print(sess.run(prediction,feed_dict={input:image}))
 
