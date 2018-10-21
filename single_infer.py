@@ -82,7 +82,7 @@ def infer(im):
             saver = tf.train.import_meta_graph("{}.meta".format(checkpoint_file))
             saver.restore(sess,checkpoint_file)
             input = graph.get_operation_by_name("main_parameters/Input").outputs[0]
-            prediction=graph.get_operation_by_name("ArgMax").outputs[0]
+            prediction=graph.get_operation_by_name("ArgMax_1").outputs[0]
             #newdata=put your data here
             print(sess.run(prediction,feed_dict={input:image}))
 
@@ -94,6 +94,7 @@ def main():
     infer('cifar/test/68_cat.png')
     infer('cifar/test/77_cat.png')
     infer('cifar/test/91_cat.png')
+    infer('cifar/test/176_cat.png')
 
 if __name__ == "__main__":
     main()
