@@ -68,8 +68,12 @@ def main():
     # Read the image & get statstics
     image = scipy.misc.imread('cifar/test/0_cat.png')
     image = image.astype(float)
-    Input_image_shape=image.shape
-    height,width,channels = Input_image_shape
+    image = np.array(X, dtype=float) / 255.0
+    image = image.reshape([-1, 3, 32, 32])
+    image = image.transpose([0, 2, 3, 1])
+    image = image.reshape(-1, 32*32*3)
+    # Input_image_shape=image.shape
+    # height,width,channels = Input_image_shape
 
     with graph.as_default():
         session_conf = tf.ConfigProto(allow_soft_placement=True, log_device_placement =False)
