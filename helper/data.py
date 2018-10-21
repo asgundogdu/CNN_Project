@@ -55,11 +55,11 @@ def get_data_set(name="train"):
     return x, dense_to_one_hot(y)
 
 
- def _print_download_progress(count, block_size, total_size):
-    pct_complete = float(count * block_size) / total_size
-    msg = "\r- Download progress: {0:.1%}".format(pct_complete)
-    sys.stdout.write(msg)
-    sys.stdout.flush()
+def _print_download_progress(count, block_size, total_size):
+	pct_complete = float(count * block_size) / total_size
+	msg = "\r- Download progress: {0:.1%}".format(pct_complete)
+	sys.stdout.write(msg)
+	sys.stdout.flush()
 
 
 def maybe_download_and_extract():
