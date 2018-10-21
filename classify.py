@@ -10,7 +10,10 @@ def main():
         os.system('python train.py')
 
     elif run_type=='test':
-        infer(sys.argv[1])
+        infer.infer(sys.argv[1])
+
+    elif run_type=='vis_get':
+    	infer.get_activations(sys.argv[1])
 
     else:
     	print("To run this script please enter either: 'train' or 'test <x>.png'")
