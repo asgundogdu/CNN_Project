@@ -61,7 +61,9 @@ from scipy import misc
 
 
 def main():
-    checkpoint_file = 'model/trial4/'
+    checkpoint_directory = 'model/trial4/'
+    checkpoint_file=tf.train.latest_checkpoint(checkpoint_directory)
+    graph=tf.Graph()
     print("Load Image...")
     # Read the image & get statstics
     image = scipy.misc.imread('cifar/test/0_cat.png')
