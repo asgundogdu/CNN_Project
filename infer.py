@@ -34,7 +34,7 @@ except ValueError:
 
 
 def main():
-	
+
 	image = scipy.misc.imread('cifar/test/0_cat.png')
 	image = image.astype(float)
 	image = np.array(image, dtype=float) / 255.0
@@ -43,8 +43,9 @@ def main():
 	image = image.reshape(-1, 32*32*3)
 
     # i = 0
-    # predicted_class = np.zeros(shape=len(test_x[0]), dtype=np.int)
-    result = sess.run(y_pred_cls, feed_dict={x: image})
+	predicted_class = np.zeros(shape=len([image]), dtype=np.int)
+	
+	result = sess.run(y_pred_cls, feed_dict={x: image})
     # while i < len(test_x):
     #     j = min(i + _BATCH_SIZE, len(test_x))
     #     batch_xs = test_x[i:j, :]
