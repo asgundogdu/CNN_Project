@@ -78,7 +78,7 @@ def restore_see_layer(ix,model_name=None,var_name=None):
     with tf.Session('', tf.Graph()) as s:
         with s.graph.as_default():
             if (model_name!=None) and var_name!=None:
-                saver = tf.train.import_meta_graph("model/trial4/-25024.meta")
+                #saver = tf.train.import_meta_graph("model/trial4/-25024.meta")
                 # last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
                 # saver.restore(s, save_path=last_chk_path)
                 # saver.restore(s,model_name)
