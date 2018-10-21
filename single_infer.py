@@ -1084,8 +1084,9 @@ def infer(im):
             input = graph.get_operation_by_name("main_parameters/Input").outputs[0]
             prediction=graph.get_operation_by_name("ArgMax").outputs[0]
             #newdata=put your data here
-            print(sess.run(prediction,feed_dict={input:image}))
-
+            result = sess.run(prediction,feed_dict={input:image})
+            print(result[0])
+            return result
 
 def main():
     # infer('cifar/test/0_cat.png')
@@ -1095,10 +1096,11 @@ def main():
     # infer('cifar/test/77_cat.png')
     # infer('cifar/test/91_cat.png')
     # infer('cifar/test/176_cat.png')
-
+    results = []
     for f in files:
-        infer('cifar/test/'+f)
+        results.append(infer('cifar/test/'+f))
         print('*'*120)
+    print(results)
 
 if __name__ == "__main__":
     main()
