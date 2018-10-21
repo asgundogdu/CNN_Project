@@ -12,17 +12,17 @@ def main():
     print(run_type)
 
     if run_type=='train':
-    	import train
+        import train
         # os.system('python3 train.py')
         train.run_train()
 
     elif run_type=='test':
-    	import infer
+        import infer
         infer.infer(sys.argv[2])
         infer.get_activations(sys.argv[2])
 
     else:
-    	print("To run this script please enter either: 'train' or 'test <x>.png'")
+        print("To run this script please enter either: 'train' or 'test <x>.png'")
 
 if __name__ == '__main__':
   main()
