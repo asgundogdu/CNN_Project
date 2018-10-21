@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 import scipy
 from scipy import misc
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 # import cv2
 
 # with tf.Graph().as_default() as graph: # Set default graph as graph
