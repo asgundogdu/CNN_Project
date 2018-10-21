@@ -36,8 +36,8 @@ def get_data_set(name="train"):
     if name is "train":
     	for file in os.listdir("/cifar/train"):
     		if file.endswith(".png"):
-    			X = scipy.misc.imread(file)
-    			X = X.astype(float)
+				X = scipy.misc.imread(file)
+				X = X.astype(float)
 				X = np.array(X, dtype=float) / 255.0
 				X = X.reshape([-1, 3, 32, 32])
 				X = X.transpose([0, 2, 3, 1])
@@ -46,11 +46,11 @@ def get_data_set(name="train"):
 				Y = class_names[file.split('_')[1].split('.')[0]]
 
 				if x is None:
-	                x = [X]
-	                y = [Y]
-	            else:
-	                x = np.concatenate((x, X), axis=0)
-	                y = np.concatenate((y, Y), axis=0)
+				    x = [X]
+				    y = [Y]
+				else:
+				    x = np.concatenate((x, X), axis=0)
+				    y = np.concatenate((y, Y), axis=0)
 
         # for i in range(5):
         #     f = open('./data_set/'+folder_name+'/data_batch_' + str(i + 1), 'rb')
@@ -71,11 +71,11 @@ def get_data_set(name="train"):
         #     else:
         #         x = np.concatenate((x, X), axis=0)
         #         y = np.concatenate((y, Y), axis=0)
-    elif name is "test":
-    	for file in os.listdir("/cifar/test"):
-    		if file.endswith(".png"):
-    			X = scipy.misc.imread(file)
-    			X = X.astype(float)
+	elif name is "test":
+		for file in os.listdir("/cifar/test"):
+			if file.endswith(".png"):
+				X = scipy.misc.imread(file)
+				X = X.astype(float)
 				X = np.array(X, dtype=float) / 255.0
 				X = X.reshape([-1, 3, 32, 32])
 				X = X.transpose([0, 2, 3, 1])
@@ -84,11 +84,11 @@ def get_data_set(name="train"):
 				Y = class_names[file.split('_')[1].split('.')[0]]
 
 				if x is None:
-	                x = [X]
-	                y = [Y]
-	            else:
-	                x = np.concatenate((x, X), axis=0)
-	                y = np.concatenate((y, Y), axis=0)
+				    x = [X]
+				    y = [Y]
+				else:
+				    x = np.concatenate((x, X), axis=0)
+				    y = np.concatenate((y, Y), axis=0)
     # elif name is "test":
     #     f = open('./data_set/'+folder_name+'/test_batch', 'rb')
     #     datadict = pickle.load(f, encoding='latin1')
