@@ -78,7 +78,7 @@ def main():
             input = graph.get_operation_by_name("input").outputs[0]
             prediction=graph.get_operation_by_name("prediction").outputs[0]
             #newdata=put your data here
-            print sess.run(prediction,feed_dict={input:image})
+            print(sess.run(prediction,feed_dict={input:image}))
 
 
 if __name__ == "__main__":
