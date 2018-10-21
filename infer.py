@@ -34,16 +34,16 @@ def main():
     while i < len(test_x):
         j = min(i + _BATCH_SIZE, len(test_x))
         batch_xs = test_x[i:j, :]
-        batch_ys = test_y[i:j, :]
-        predicted_class[i:j] = sess.run(y_pred_cls, feed_dict={x: batch_xs, y: batch_ys})
+        #batch_ys = test_y[i:j, :]
+        predicted_class[i:j] = sess.run(y_pred_cls, feed_dict={x: batch_xs})
         i = j
 
-    correct = (np.argmax(test_y, axis=1) == predicted_class)
-    acc = correct.mean() * 100
-    correct_numbers = correct.sum()
+    # correct = (np.argmax(test_y, axis=1) == predicted_class)
+    # acc = correct.mean() * 100
+    # correct_numbers = correct.sum()
     print()
-    print("Accuracy on Test-Set: {0:.2f}% ({1} / {2})".format(acc, correct_numbers, len(test_x)))
-
+    # print("Accuracy on Test-Set: {0:.2f}% ({1} / {2})".format(acc, correct_numbers, len(test_x)))
+    print(predicted_class)
 
 if __name__ == "__main__":
     main()
