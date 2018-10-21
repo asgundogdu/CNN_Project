@@ -197,7 +197,7 @@ def freeze_graph(model_dir, output_node_names):
     return output_graph_def
 
 
-def main():
+def run_train():
     train_start = time()
 
     #parser = argparse.ArgumentParser()
@@ -214,13 +214,13 @@ def main():
     mes = "Best accuracy pre session: {:.2f}, time: {:0>2}:{:0>2}:{:05.2f}"
     print(mes.format(global_accuracy, int(hours), int(minutes), seconds))
 
-    [print(n.name) for n in tf.get_default_graph().as_graph_def().node]
+    # [print(n.name) for n in tf.get_default_graph().as_graph_def().node]
 
     freeze_graph("./model/trial4/", "ArgMax_1")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 
 sess.close()
