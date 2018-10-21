@@ -54,8 +54,8 @@ def train(epoch):
     i_global = 0
 
     for batch in range(batch_size):
-        batch_xs = train_x[batch * batch_size_: (s+1)*batch_size_]
-        batch_ys = train_y[batch * batch_size_: (s+1)*batch_size_]
+        batch_xs = train_x[batch * batch_size_: (batch + 1) * batch_size_]
+        batch_ys = train_y[batch * batch_size_: (batch + 1) * batch_size_]
 
         start_time = time()
         i_global, _, batch_loss, batch_acc = sess.run(
@@ -110,7 +110,7 @@ def train(epoch):
     test_acc = correct.mean()*100    
 
     msg = "Epoch {} - Training Accuracy: {:.4f} - Test Accuracy: {:.4f}"
-    print(msg.format((epoch+1), train_acc, test_acc))
+    print(msg.format((epoch+1), strain_acc, test_acc))
     
 
     #########################################################################################
