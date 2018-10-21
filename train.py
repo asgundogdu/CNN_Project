@@ -156,8 +156,8 @@ def train(epoch):
 
 
 def freeze_graph(model_dir, output_node_names):
-	if not tf.gfile.Exists(model_dir):
-        raise AssertionError()
+	# if not tf.gfile.Exists(model_dir):
+ #        raise AssertionError
 
     if not output_node_names:
         print("You need to supply the name of a node to --output_node_names.")
