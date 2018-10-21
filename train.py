@@ -48,6 +48,7 @@ except ValueError:
 
 def train(epoch):
     global epoch_start
+    global global_accuracy
     epoch_start = time()
     batch_size = int(math.ceil(len(train_x) / batch_size_))
     i_global = 0
