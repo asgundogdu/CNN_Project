@@ -16,9 +16,9 @@ global_accuracy = 0
 epoch_start = 0
 
 # Parametes
-_BATCH_SIZE = 128
-_EPOCH = 60
-_SAVE_PATH = "./tensorboard/cifar-10-v1.0.0/"
+batch_size = 128
+eopch_num = 60
+save_dir = "./model/trial4/"
 
 # Loss function and optimizer
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=output, labels=y))
@@ -35,11 +35,11 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 merged = tf.summary.merge_all()
 saver = tf.train.Saver()
 sess = tf.Session()
-train_writer = tf.summary.FileWriter(_SAVE_PATH, sess.graph)
+train_writer = tf.summary.FileWriter(save_dir, sess.graph)
 
 try:
     print("\nTrying to restore last checkpoint ...")
-    last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=_SAVE_PATH)
+    last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
     saver.restore(sess, save_path=last_chk_path)
     print("Restored checkpoint from:", last_chk_path)
 except ValueError:
@@ -49,18 +49,19 @@ except ValueError:
 def train(epoch):
     global epoch_start
     epoch_start = time()
-    batch_size = int(math.ceil(len(train_x) / _BATCH_SIZE))
+    batch_size = int(math.ceil(len(train_x) / batch_size))
     i_global = 0
 
     for s in range(batch_size):
-        batch_xs = train_x[s*_BATCH_SIZE: (s+1)*_BATCH_SIZE]
-        batch_ys = train_y[s*_BATCH_SIZE: (s+1)*_BATCH_SIZE]
+        batch_xs = train_x[s*batch_size: (s+1)*batch_size]
+        batch_ys = train_y[s*batch_size: (s+1)*batch_size]
 
         start_time = time()
         i_global, _, batch_loss, batch_acc = sess.run(
             [global_step, optimizer, loss, accuracy],
             feed_dict={x: batch_xs, y: batch_ys, learning_rate: lr(epoch)})
         duration = time() - start_time
+
 
         if s % 10 == 0:
             percentage = int(round((s/batch_size)*100))
@@ -69,20 +70,54 @@ def train(epoch):
             filled_len = int((bar_len*int(percentage))/100)
             bar = '=' * filled_len + '>' + '-' * (bar_len - filled_len)
 
+
             msg = "Global step: {:>5} - [{}] {:>3}% - acc: {:.4f} - loss: {:.4f} - {:.1f} sample/sec"
-            print(msg.format(i_global, bar, percentage, batch_acc, batch_loss, _BATCH_SIZE / duration))
+            print(msg.format(i_global, bar, percentage, batch_acc, batch_loss, batch_size / duration))
 
-    test_and_save(i_global, epoch)
+    print('#'*30)
 
+	# Compute Training Accuracy
+    i = 0
+    predicted_class = np.zeros(shape=len(train_x), dtype=np.int)
+    while i < len(train_x):
+        j = min(i + batch_size, len(train_x))
+        batch_xs = train_x[i:j, :]
+        batch_ys = train_y[i:j, :]
+        predicted_class[i:j] = sess.run(
+            y_pred_cls,
+            feed_dict={x: batch_xs, y: batch_ys, learning_rate: lr(epoch)}
+        )
+        i = j
 
-def test_and_save(_global_step, epoch):
-    global global_accuracy
-    global epoch_start
+    correct = (np.argmax(train_y, axis=1) == predicted_class)
+    train_acc = correct.mean()*100  
+
+	# Compute Test Accuracy
+    i = 0
+    predicted_class = np.zeros(shape=len(test_x), dtype=np.int)
+    while i < len(test_x):
+        j = min(i + batch_size, len(test_x))
+        batch_xs = test_x[i:j, :]
+        batch_ys = test_y[i:j, :]
+        predicted_class[i:j] = sess.run(
+            y_pred_cls,
+            feed_dict={x: batch_xs, y: batch_ys, learning_rate: lr(epoch)}
+        )
+        i = j
+
+    correct = (np.argmax(test_y, axis=1) == predicted_class)
+    test_acc = correct.mean()*100    
+
+    msg = "Training Accuracy: {:.4f} - Test Accuracy: {:.4f}"
+    print(msg.format(train_acc, test_acc))
+    
+
+    #########################################################################################
 
     i = 0
     predicted_class = np.zeros(shape=len(test_x), dtype=np.int)
     while i < len(test_x):
-        j = min(i + _BATCH_SIZE, len(test_x))
+        j = min(i + batch_size, len(test_x))
         batch_xs = test_x[i:j, :]
         batch_ys = test_y[i:j, :]
         predicted_class[i:j] = sess.run(
@@ -105,9 +140,9 @@ def test_and_save(_global_step, epoch):
         summary = tf.Summary(value=[
             tf.Summary.Value(tag="Accuracy/test", simple_value=acc),
         ])
-        train_writer.add_summary(summary, _global_step)
+        train_writer.add_summary(summary, i_global)
 
-        saver.save(sess, save_path=_SAVE_PATH, global_step=_global_step)
+        saver.save(sess, save_path=save_dir, global_step=i_global)
 
         mes = "This epoch receive better accuracy: {:.2f} > {:.2f}. Saving session..."
         print(mes.format(acc, global_accuracy))
@@ -116,14 +151,14 @@ def test_and_save(_global_step, epoch):
     elif global_accuracy == 0:
         global_accuracy = acc
 
-    print("###########################################################################################################")
+    print("-"*30)
 
 
 def main():
     train_start = time()
 
-    for i in range(_EPOCH):
-        print("\nEpoch: {}/{}\n".format((i+1), _EPOCH))
+    for i in range(eopch_num):
+        print("\nEpoch: {}/{}\n".format((i+1), eopch_num))
         train(i)
 
     hours, rem = divmod(time() - train_start, 3600)

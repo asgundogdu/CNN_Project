@@ -2,19 +2,22 @@ import tensorflow as tf
 
 
 def model():
-    _IMAGE_SIZE = 32
-    _IMAGE_CHANNELS = 3
-    _NUM_CLASSES = 10
+    image_size = 32
+    num_channels = 3
+    num_classes = 10
 
-    with tf.name_scope('main_params'):
-        x = tf.placeholder(tf.float32, shape=[None, _IMAGE_SIZE * _IMAGE_SIZE * _IMAGE_CHANNELS], name='Input')
-        y = tf.placeholder(tf.float32, shape=[None, _NUM_CLASSES], name='Output')
-        x_image = tf.reshape(x, [-1, _IMAGE_SIZE, _IMAGE_SIZE, _IMAGE_CHANNELS], name='images')
+
+    # Using name scope to use/understand tensorboard while debugging
+
+    with tf.name_scope('main_parameters'):
+        x = tf.placeholder(tf.float32, shape=[None, image_size * image_size * num_channels], name='Input')
+        y = tf.placeholder(tf.float32, shape=[None, num_classes], name='Output')
+        x_image = tf.reshape(x, [-1, image_size, image_size, num_channels], name='images')
 
         global_step = tf.Variable(initial_value=0, trainable=False, name='global_step')
         learning_rate = tf.placeholder(tf.float32, shape=[], name='learning_rate')
 
-    with tf.variable_scope('conv1') as scope:
+    with tf.variable_scope('conv1_layer') as scope:
         conv = tf.layers.conv2d(
             inputs=x_image,
             filters=32,
@@ -34,7 +37,7 @@ def model():
         pool = tf.layers.max_pooling2d(conv, pool_size=[2, 2], strides=2, padding='SAME')
         drop = tf.layers.dropout(pool, rate=0.25, name=scope.name)
 
-    with tf.variable_scope('conv2') as scope:
+    with tf.variable_scope('conv2_layer') as scope:
         conv = tf.layers.conv2d(
             inputs=drop,
             filters=128,
@@ -53,12 +56,12 @@ def model():
         pool = tf.layers.max_pooling2d(conv, pool_size=[2, 2], strides=2, padding='SAME')
         drop = tf.layers.dropout(pool, rate=0.25, name=scope.name)
 
-    with tf.variable_scope('fully_connected') as scope:
+    with tf.variable_scope('fully_connected_layer') as scope:
         flat = tf.reshape(drop, [-1, 4 * 4 * 128])
 
         fc = tf.layers.dense(inputs=flat, units=1500, activation=tf.nn.relu)
         drop = tf.layers.dropout(fc, rate=0.5)
-        softmax = tf.layers.dense(inputs=drop, units=_NUM_CLASSES, activation=tf.nn.softmax, name=scope.name)
+        softmax = tf.layers.dense(inputs=drop, units=num_classes, activation=tf.nn.softmax, name=scope.name)
 
     y_pred_cls = tf.argmax(softmax, axis=1)
 
