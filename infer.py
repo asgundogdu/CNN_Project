@@ -38,7 +38,7 @@ def infer(im):
 
     last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
     saver.restore(sess, save_path=last_chk_path)
-    
+
     image = scipy.misc.imread(im)
     image = image.astype(float)
     image = np.array(image, dtype=float) / 255.0
@@ -53,7 +53,10 @@ def infer(im):
 
     class_names = {0:'airplane',1:'automobile',2:'bird',3:'cat',4:'deer',5:'dog',6:'frog',7:'horse',8:'ship',9:'truck'}
 
+    print('-'*50)
+    print('The {} is classified as:'.format(im))
     print(class_names[result[0]])
+    print('-'*50)
     # print('Cat -- should be 3!')
 
 
@@ -74,9 +77,9 @@ def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
     result = sess.run('conv1_layer/conv2d/Conv2D:0' ,feed_dict={x:[image.reshape([3072])]})  
 
     # output_cl1 = restore_see_layer(ix=image,model_name=base_model,var_name='conv1_layer/conv2d/Conv2D')
-    print(result.shape)
+    # print(result.shape)
 
-    print(result[0][0].shape)
+    # print(result[0][0].shape)
 
     filters = 32
     fig = plt.figure()
