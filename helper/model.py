@@ -61,6 +61,10 @@ def model():
 
         fc = tf.layers.dense(inputs=flat, units=1500, activation=tf.nn.relu)
         drop = tf.layers.dropout(fc, rate=0.5)
+
+        fc = tf.layers.dense(inputs=flat, units=256, activation=tf.nn.relu)
+        drop = tf.layers.dropout(fc, rate=0.5)
+
         softmax = tf.layers.dense(inputs=drop, units=num_classes, activation=tf.nn.softmax, name=scope.name)
 
     y_pred_cls = tf.argmax(softmax, axis=1)
