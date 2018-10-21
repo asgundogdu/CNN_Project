@@ -70,8 +70,8 @@ def model():
         fc = tf.layers.dense(inputs=flat, units=1500, activation=tf.nn.relu)
         drop = tf.layers.dropout(fc, rate=0.6)
 
-        fc = tf.layers.dense(inputs=flat, units=256, activation=tf.nn.relu)
-        drop = tf.layers.dropout(fc, rate=0.4)
+        fc = tf.layers.dense(inputs=flat, units=512, activation=tf.nn.relu)
+        drop = tf.layers.dropout(fc, rate=0.5)
 
         softmax = tf.layers.dense(inputs=drop, units=num_classes, activation=tf.nn.softmax, name=scope.name)
 
@@ -79,15 +79,16 @@ def model():
 
     return x, y, softmax, y_pred_cls, global_step, learning_rate
 
-
 def lr(epoch):
-    learning_rate = 1e-3
-    if epoch > 80:
-        learning_rate *= 0.5e-3
-    elif epoch > 60:
-        learning_rate *= 1e-3
-    elif epoch > 40:
-        learning_rate *= 1e-2
-    elif epoch > 20:
-        learning_rate *= 1e-1
-    return learning_rate
+    return 1e-2
+# def lr(epoch):
+#     learning_rate = 1e-3
+#     if epoch > 80:
+#         learning_rate *= 0.5e-3
+#     elif epoch > 60:
+#         learning_rate *= 1e-3
+#     elif epoch > 40:
+#         learning_rate *= 1e-2
+#     elif epoch > 20:
+#         learning_rate *= 0.5e-2#1e-1
+#     return learning_rate
