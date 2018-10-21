@@ -1,6 +1,6 @@
 import sys, os
-import infer
-import train
+
+
 
 
 def main():
@@ -12,10 +12,12 @@ def main():
     print(run_type)
 
     if run_type=='train':
+    	import train
         # os.system('python3 train.py')
         train.run_train()
 
     elif run_type=='test':
+    	import infer
         infer.infer(sys.argv[2])
         infer.get_activations(sys.argv[2])
 
