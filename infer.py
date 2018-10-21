@@ -86,10 +86,9 @@ def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
     plt.figure(1, figsize=(50,50))
     n_columns = 6
     n_rows = 6
-    plt.subplots_adjust(left=1, bottom=1, right=1, top=1, wspace=1, hspace=1)
     for i in range(filters):
         plt.subplot(n_rows, n_columns, i+1)
-        plt.title('Filter ' + str(i), fontsize=10)
+        # plt.title('Filter ' + str(i), fontsize=10)
         plt.imshow(result[0,:,:,i], interpolation="nearest", cmap="gray")
     plt.savefig('CONV_rslt.png')
 
