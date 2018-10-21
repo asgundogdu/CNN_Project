@@ -57,18 +57,36 @@ def infer(im):
     print(class_names[result[0]])
     # print('Cat -- should be 3!')
 
-def main():
-    infer('cifar/test/0_cat.png')
-    infer('cifar/test/8_cat.png')
-    infer('cifar/test/46_cat.png')
-    infer('cifar/test/68_cat.png')
-    infer('cifar/test/77_cat.png')
-    infer('cifar/test/91_cat.png')
-    infer('cifar/test/176_cat.png')
+
+def get_activations(layer, stimuli):
+    graph = tf.get_default_graph()
+    features = graph.get_tensor_by_name('conv1_layer/pool3:0')
+    features_values = sess.run(features)
+    print(features_values)
+    print(features_values.shape)
+
+    # units = layer.eval(session=sess,feed_dict={x:np.reshape(stimuli,[1,32*32*3],order='F'),keep_prob:1.0})
+
+    # filters = units.shape[3]
+    # plt.figure(1, figsize=(20,20))
+    # for i in xrange(0,filters):
+        # plt.subplot(7,6,i+1)
+        # plt.title('Filter ' + str(i))
+        # plt.imshow(units[0,:,:,i], interpolation="nearest", cmap="gray")
+    # plt.savefig('CONV_rslt.png')
+
+# def main():
+#     infer('cifar/test/0_cat.png')
+#     infer('cifar/test/8_cat.png')
+#     infer('cifar/test/46_cat.png')
+#     infer('cifar/test/68_cat.png')
+#     infer('cifar/test/77_cat.png')
+#     infer('cifar/test/91_cat.png')
+#     infer('cifar/test/176_cat.png')
 
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
 
 
 sess.close()
