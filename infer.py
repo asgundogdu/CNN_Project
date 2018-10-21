@@ -32,31 +32,30 @@ except ValueError:
 
 def infer(im):
 
-	image = scipy.misc.imread(im)
-	image = image.astype(float)
-	image = np.array(image, dtype=float) / 255.0
-	#image = image.reshape([-1, 3, 32, 32])
-	#image = image.transpose([0, 2, 3, 1])
-	image = image.reshape(-1, 32*32*3)
+    image = scipy.misc.imread(im)
+    image = image.astype(float)
+    image = np.array(image, dtype=float) / 255.0
+    #image = image.reshape([-1, 3, 32, 32])
+    #image = image.transpose([0, 2, 3, 1])
+    image = image.reshape(-1, 32*32*3)
 
     # i = 0
-	predicted_class = np.zeros(shape=len([image]), dtype=np.int)
-	
-	result = sess.run(y_pred_cls, feed_dict={x: image})
+    predicted_class = np.zeros(shape=len([image]), dtype=np.int)
+    
+    result = sess.run(y_pred_cls, feed_dict={x: image})
     # while i < len(test_x):
     #     j = min(i + _BATCH_SIZE, len(test_x))
     #     batch_xs = test_x[i:j, :]
     #     #batch_ys = test_y[i:j, :]
     #     predicted_class[i:j] = sess.run(y_pred_cls, feed_dict={x: batch_xs})
     #     i = j
-    class_names = {'airplane':0,'automobile':1,'bird':2,'cat':3,'deer':4,
-                   'dog':5,'frog':6,'horse':7,'ship':8,'truck':9}
+    class_names = {'airplane':0,'automobile':1,'bird':2,'cat':3,'deer':4,'dog':5,'frog':6,'horse':7,'ship':8,'truck':9}
     class_names = {y:x for x,y in class_names.iteritems()}
     # correct = (np.argmax(test_y, axis=1) == predicted_class)
     # acc = correct.mean() * 100
     # correct_numbers = correct.sum()
-	print(class_names[result[0]])
-	# print('Cat -- should be 3!')
+    print(class_names[result[0]])
+    # print('Cat -- should be 3!')
 
 def main():
     infer('cifar/test/0_cat.png')
