@@ -110,7 +110,7 @@ def train(epoch):
     test_acc = correct.mean()*100    
 
     msg = "Epoch {} - Training Accuracy: {:.4f} - Test Accuracy: {:.4f}"
-    print(msg.format((epoch+1), strain_acc, test_acc))
+    print(msg.format((epoch+1), train_acc, test_acc))
     
 
     #########################################################################################
