@@ -34,12 +34,13 @@ except ValueError:
 
 
 def main():
+	
 	image = scipy.misc.imread('cifar/test/0_cat.png')
-    image = image.astype(float)
-    image = np.array(image, dtype=float) / 255.0
-    image = image.reshape([-1, 3, 32, 32])
-    image = image.transpose([0, 2, 3, 1])
-    image = image.reshape(-1, 32*32*3)
+	image = image.astype(float)
+	image = np.array(image, dtype=float) / 255.0
+	image = image.reshape([-1, 3, 32, 32])
+	image = image.transpose([0, 2, 3, 1])
+	image = image.reshape(-1, 32*32*3)
 
     i = 0
     # predicted_class = np.zeros(shape=len(test_x[0]), dtype=np.int)
