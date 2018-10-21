@@ -157,9 +157,7 @@ def train(epoch):
 
 def freeze_graph(model_dir, output_node_names):
 	if not tf.gfile.Exists(model_dir):
-        raise AssertionError(
-            "Export directory doesn't exists. Please specify an export "
-            "directory: %s" % model_dir)
+        raise AssertionError()
 
     if not output_node_names:
         print("You need to supply the name of a node to --output_node_names.")
