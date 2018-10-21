@@ -70,7 +70,7 @@ def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
 
     graph = tf.get_default_graph()
     features = graph.get_tensor_by_name('conv1_layer/conv2d/Conv2D:0')
-    features_values = sess.run(features)
+    #features_values = sess.run(features)
 
     result = sess.run(features, feed_dict={x: image})
 
