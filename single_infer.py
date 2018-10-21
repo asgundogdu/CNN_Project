@@ -60,13 +60,13 @@ from scipy import misc
 #                                 Session_out = sess.run( l_output, feed_dict = {l_input : image} 
 
 
-def main():
+def infer(im):
     checkpoint_directory = 'model/trial4/'
     checkpoint_file=tf.train.latest_checkpoint(checkpoint_directory)
     graph=tf.Graph()
     print("Load Image...")
     # Read the image & get statstics
-    image = scipy.misc.imread('cifar/test/0_cat.png')
+    image = scipy.misc.imread(im)
     image = image.astype(float)
     image = np.array(image, dtype=float) / 255.0
     image = image.reshape([-1, 3, 32, 32])
@@ -86,6 +86,14 @@ def main():
             #newdata=put your data here
             print(sess.run(prediction,feed_dict={input:image}))
 
+
+def main():
+    infer('cifar/test/0_cat.png')
+    infer('cifar/test/8_cat.png')
+    infer('cifar/test/46_cat.png')
+    infer('cifar/test/68_cat.png')
+    infer('cifar/test/77_cat.png')
+    infer('cifar/test/91_cat.png')
 
 if __name__ == "__main__":
     main()
