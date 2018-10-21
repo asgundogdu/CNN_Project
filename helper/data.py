@@ -32,7 +32,7 @@ def get_data_set(name="train"):
     #f.close()
 
     if name is "train":
-        for file in os.listdir("cifar/train"):
+        for enum, file in enumerate(os.listdir("cifar/train")):
             if file.endswith(".png"):
                 X = scipy.misc.imread("cifar/train/"+file)
                 X = X.astype(float)
@@ -49,6 +49,8 @@ def get_data_set(name="train"):
                 else:
                     x = np.concatenate((x, [X]), axis=0)
                     y = np.concatenate((y, [Y]), axis=0)
+
+            print(enum)
 
         # for i in range(5):
         #     f = open('./data_set/'+folder_name+'/data_batch_' + str(i + 1), 'rb')
