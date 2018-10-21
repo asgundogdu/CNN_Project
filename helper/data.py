@@ -27,11 +27,9 @@ class_names = {'airplane':0,'automobile':1,'bird':2,'cat':3,'deer':4,
 def get_data_set(name="train"):
     x = None
     y = None
-
-    folder_name = "cifar_10"
-
-    f = open('./data_set/'+folder_name+'/batches.meta', 'rb')
-    f.close()
+    #folder_name = "cifar_10"
+    #f = open('./data_set/'+folder_name+'/batches.meta', 'rb')
+    #f.close()
 
     if name is "train":
     	for file in os.listdir("/cifar/train"):
