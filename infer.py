@@ -78,10 +78,10 @@ def restore_see_layer(ix,model_name=None,var_name=None):
     with tf.Session('', tf.Graph()) as s:
         with s.graph.as_default():
             if (model_name!=None) and var_name!=None:
-                # saver = tf.train.import_meta_graph(model_name+"/-25024.meta")
-                last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
-                saver.restore(s, save_path=last_chk_path)
-                # saver.restore(s,model_name)
+                saver = tf.train.import_meta_graph(model_name+"/-25024.meta")
+                # last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
+                # saver.restore(s, save_path=last_chk_path)
+                saver.restore(s,model_name)
                 fd={'x:0':ix,'train_test:0':False}
                 var_name=var_name+":0"
                 result = s.run(var_name,feed_dict=fd)
