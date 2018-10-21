@@ -5,6 +5,7 @@ import infer
 def main():
 
     run_type = sys.argv[0]
+    print(run_type)
 
     if run_type=='train':
         os.system('python train.py')
