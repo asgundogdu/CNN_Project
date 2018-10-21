@@ -1069,8 +1069,8 @@ def infer(im):
     image = scipy.misc.imread(im)
     image = image.astype(float)
     image = np.array(image, dtype=float) / 255.0
-    image = image.reshape([-1, 3, 32, 32])
-    image = image.transpose([0, 2, 3, 1])
+    # image = image.reshape([-1, 3, 32, 32])
+    # image = image.transpose([0, 2, 3, 1])
     image = image.reshape(-1, 32*32*3)
     # Input_image_shape=image.shape
     # height,width,channels = Input_image_shape
