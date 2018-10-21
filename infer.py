@@ -61,6 +61,18 @@ def infer(im):
 
 
 def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
+    x, y, output, y_pred_cls, global_step, learning_rate = model()
+
+
+    save_dir = 'model/trial4/'
+
+
+    saver = tf.train.Saver()
+    sess = tf.Session()
+
+    last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
+    saver.restore(sess, save_path=last_chk_path)
+
     image = scipy.misc.imread(im)
     image = image.astype(float)
     image = np.array(image, dtype=float) / 255.0
