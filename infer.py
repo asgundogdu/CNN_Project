@@ -29,7 +29,7 @@ except ValueError:
 def main():
     i = 0
     predicted_class = np.zeros(shape=len(test_x[0]), dtype=np.int)
-    sess.run(y_pred_cls, feed_dict={x: batch_xs})
+    sess.run(y_pred_cls, feed_dict={x: test_x})
     # while i < len(test_x):
     #     j = min(i + _BATCH_SIZE, len(test_x))
     #     batch_xs = test_x[i:j, :]
