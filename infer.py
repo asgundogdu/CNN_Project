@@ -68,26 +68,28 @@ def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
     #image = image.transpose([0, 2, 3, 1])
     image = image.reshape(-1, 32*32*3)
 
-    base_model = 'model/trial4'
+    result = sess.run('conv1_layer/conv2d/Conv2D:0' ,feed_dict={x:[image.reshape([3072])]})  
 
-    output_cl1 = restore_see_layer(ix=image,model_name=base_model,var_name='conv1_layer/conv2d/Conv2D')
-    print(output_cl1.shape)
+    # output_cl1 = restore_see_layer(ix=image,model_name=base_model,var_name='conv1_layer/conv2d/Conv2D')
+    print(result.shape)
+
+    print(result[0][0].shape)
 
 
-def restore_see_layer(ix,model_name=None,var_name=None):
-    with tf.Session('', tf.Graph()) as s:
-        with s.graph.as_default():
-            if (model_name!=None) and var_name!=None:
-                #saver = tf.train.import_meta_graph("model/trial4/-25024.meta")
-                # last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
-                # saver.restore(s, save_path=last_chk_path)
-                # saver.restore(s,model_name)
-                #saver.restore(s,'model/trial4/-25024.data-00000-of-00001') 
-                saver.restore(s,tf.train.latest_checkpoint('model/trial4/')) 
-                fd={x:ix}#,'train_test:0':False}
-                var_name=var_name+":0"
-                result = s.run(var_name,feed_dict=fd)
-    return result
+# def restore_see_layer(ix,model_name=None,var_name=None):
+#     with tf.Session('', tf.Graph()) as s:
+#         with s.graph.as_default():
+#             if (model_name!=None) and var_name!=None:
+#                 saver = tf.train.import_meta_graph("model/trial4/-25024.meta")
+#                 # last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
+#                 # saver.restore(s, save_path=last_chk_path)
+#                 # saver.restore(s,model_name)
+#                 #saver.restore(s,'model/trial4/-25024.data-00000-of-00001') 
+#                 saver.restore(s,tf.train.latest_checkpoint('model/trial4/')) 
+#                 fd={x:ix}#,'train_test:0':False}
+#                 var_name=var_name+":0"
+#                 result = s.run(var_name,feed_dict=fd)
+#     return result
 
 # def main():
 #     infer('cifar/test/0_cat.png')
