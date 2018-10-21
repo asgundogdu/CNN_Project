@@ -1,4 +1,4 @@
-import sys, file
+import sys
 import infer
 
 

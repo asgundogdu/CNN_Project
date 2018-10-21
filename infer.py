@@ -9,6 +9,8 @@ from PIL import Image
 import scipy
 from scipy import misc
 
+import matplotlib.pyplot as plt
+
 
 test_x, test_y = get_data_set("test")
 x, y, output, y_pred_cls, global_step, learning_rate = model()
@@ -58,12 +60,33 @@ def infer(im):
     # print('Cat -- should be 3!')
 
 
-def get_activations(layer, stimuli):
+def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
+    image = scipy.misc.imread(im)
+    image = image.astype(float)
+    image = np.array(image, dtype=float) / 255.0
+    #image = image.reshape([-1, 3, 32, 32])
+    #image = image.transpose([0, 2, 3, 1])
+    image = image.reshape(-1, 32*32*3)
+
     graph = tf.get_default_graph()
-    features = graph.get_tensor_by_name('conv1_layer/pool3:0')
+    features = graph.get_tensor_by_name('conv1_layer/conv2d/Conv2D:0')
     features_values = sess.run(features)
+
+    result = sess.run(features, feed_dict={x: image})
+
     print(features_values)
     print(features_values.shape)
+
+
+    # with tf.Session('', tf.Graph()) as s:
+        # with s.graph.as_default():
+            # if (model_name!=None) and var_name!=None:
+    # saver = tf.train.import_meta_graph(model_name+".meta")
+    # saver.restore(s,model_name)
+    # fd={'Input:0':ix,'train_test:0':False}
+    # var_name=var_name+":0"
+    # result = sess.run(var_name,feed_dict=fd)
+    # return result
 
     # units = layer.eval(session=sess,feed_dict={x:np.reshape(stimuli,[1,32*32*3],order='F'),keep_prob:1.0})
 
