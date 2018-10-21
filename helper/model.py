@@ -26,10 +26,18 @@ def model():
             padding='SAME',
             activation=tf.nn.relu
         )
+        # conv = tf.layers.conv2d(
+        #     inputs=conv,
+        #     filters=64,
+        #     kernel_size=[4, 4],
+        #     strides=(1, 1),
+        #     padding='SAME',
+        #     activation=tf.nn.relu
+        # )
         conv = tf.layers.conv2d(
             inputs=conv,
             filters=64,
-            kernel_size=[2, 2],
+            kernel_size=[3, 3],
             strides=(1, 1),
             padding='SAME',
             activation=tf.nn.relu
@@ -60,10 +68,10 @@ def model():
         flat = tf.reshape(drop, [-1, 4 * 4 * 256])
 
         fc = tf.layers.dense(inputs=flat, units=1500, activation=tf.nn.relu)
-        drop = tf.layers.dropout(fc, rate=0.5)
+        drop = tf.layers.dropout(fc, rate=0.6)
 
         fc = tf.layers.dense(inputs=flat, units=256, activation=tf.nn.relu)
-        drop = tf.layers.dropout(fc, rate=0.5)
+        drop = tf.layers.dropout(fc, rate=0.4)
 
         softmax = tf.layers.dense(inputs=drop, units=num_classes, activation=tf.nn.softmax, name=scope.name)
 
