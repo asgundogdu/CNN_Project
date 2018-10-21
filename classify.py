@@ -1,10 +1,13 @@
 import sys, os
-import infer, train
+import infer
+import train
 
 
 def main():
 
     run_type = sys.argv[1]
+    print('*'*120)
+    print('*'*120)
     print('*'*120)
     print(run_type)
 
