@@ -16,7 +16,7 @@ global_accuracy = 0
 epoch_start = 0
 
 # Parametes
-batch_size = 128
+batch_size_ = 128
 eopch_num = 60
 save_dir = "./model/trial4/"
 
@@ -49,12 +49,12 @@ except ValueError:
 def train(epoch):
     global epoch_start
     epoch_start = time()
-    batch_size = int(math.ceil(len(train_x) / batch_size))
+    batch_size = int(math.ceil(len(train_x) / batch_size_))
     i_global = 0
 
     for s in range(batch_size):
-        batch_xs = train_x[s*batch_size: (s+1)*batch_size]
-        batch_ys = train_y[s*batch_size: (s+1)*batch_size]
+        batch_xs = train_x[s*batch_size_: (s+1)*batch_size_]
+        batch_ys = train_y[s*batch_size_: (s+1)*batch_size_]
 
         start_time = time()
         i_global, _, batch_loss, batch_acc = sess.run(
@@ -72,7 +72,7 @@ def train(epoch):
 
 
             msg = "Global step: {:>5} - [{}] {:>3}% - acc: {:.4f} - loss: {:.4f} - {:.1f} sample/sec"
-            print(msg.format(i_global, bar, percentage, batch_acc, batch_loss, batch_size / duration))
+            print(msg.format(i_global, bar, percentage, batch_acc, batch_loss, batch_size_ / duration))
 
     print('#'*30)
 
@@ -80,7 +80,7 @@ def train(epoch):
     i = 0
     predicted_class = np.zeros(shape=len(train_x), dtype=np.int)
     while i < len(train_x):
-        j = min(i + batch_size, len(train_x))
+        j = min(i + batch_size_, len(train_x))
         batch_xs = train_x[i:j, :]
         batch_ys = train_y[i:j, :]
         predicted_class[i:j] = sess.run(
@@ -96,7 +96,7 @@ def train(epoch):
     i = 0
     predicted_class = np.zeros(shape=len(test_x), dtype=np.int)
     while i < len(test_x):
-        j = min(i + batch_size, len(test_x))
+        j = min(i + batch_size_, len(test_x))
         batch_xs = test_x[i:j, :]
         batch_ys = test_y[i:j, :]
         predicted_class[i:j] = sess.run(
@@ -117,7 +117,7 @@ def train(epoch):
     i = 0
     predicted_class = np.zeros(shape=len(test_x), dtype=np.int)
     while i < len(test_x):
-        j = min(i + batch_size, len(test_x))
+        j = min(i + batch_size_, len(test_x))
         batch_xs = test_x[i:j, :]
         batch_ys = test_y[i:j, :]
         predicted_class[i:j] = sess.run(
