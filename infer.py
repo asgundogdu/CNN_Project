@@ -20,9 +20,6 @@ save_dir = 'model/trial4/'
 saver = tf.train.Saver()
 sess = tf.Session()
 
-class_names = {'airplane':0,'automobile':1,'bird':2,'cat':3,'deer':4,
-               'dog':5,'frog':6,'horse':7,'ship':8,'truck':9}
-
 try:
     print("\nTrying to restore last checkpoint ...")
     last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=save_dir)
@@ -52,7 +49,9 @@ def infer(im):
     #     #batch_ys = test_y[i:j, :]
     #     predicted_class[i:j] = sess.run(y_pred_cls, feed_dict={x: batch_xs})
     #     i = j
-
+    class_names = {'airplane':0,'automobile':1,'bird':2,'cat':3,'deer':4,
+                   'dog':5,'frog':6,'horse':7,'ship':8,'truck':9}
+    class_names = {y:x for x,y in class_names.iteritems()}
     # correct = (np.argmax(test_y, axis=1) == predicted_class)
     # acc = correct.mean() * 100
     # correct_numbers = correct.sum()
@@ -67,7 +66,7 @@ def main():
     infer('cifar/test/77_cat.png')
     infer('cifar/test/91_cat.png')
     infer('cifar/test/176_cat.png')
-    
+
 
 if __name__ == "__main__":
     main()
