@@ -42,7 +42,7 @@ def main():
 	image = image.transpose([0, 2, 3, 1])
 	image = image.reshape(-1, 32*32*3)
 
-    i = 0
+    # i = 0
     # predicted_class = np.zeros(shape=len(test_x[0]), dtype=np.int)
     result = sess.run(y_pred_cls, feed_dict={x: image})
     # while i < len(test_x):
