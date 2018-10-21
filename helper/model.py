@@ -29,7 +29,7 @@ def model():
         conv = tf.layers.conv2d(
             inputs=conv,
             filters=64,
-            kernel_size=[3, 3],
+            kernel_size=[2, 2],
             strides=(1, 1),
             padding='SAME',
             activation=tf.nn.relu

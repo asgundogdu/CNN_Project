@@ -133,8 +133,8 @@ def train(epoch):
 
     hours, rem = divmod(time() - epoch_start, 3600)
     minutes, seconds = divmod(rem, 60)
-    mes = "\nEpoch {} - accuracy: {:.2f}% ({}/{}) - time: {:0>2}:{:0>2}:{:05.2f}"
-    print(mes.format((epoch+1), acc, correct_numbers, len(test_x), int(hours), int(minutes), seconds))
+    mes = "Test accuracy: {:.2f}% ({}/{}) - time: {:0>2}:{:0>2}:{:05.2f}"
+    print(mes.format(acc, correct_numbers, len(test_x), int(hours), int(minutes), seconds))
 
     if global_accuracy != 0 and global_accuracy < acc:
 
