@@ -47,8 +47,8 @@ def get_data_set(name="train"):
                     x = [X]
                     y = [Y]
                 else:
-                    x = np.concatenate((x, X), axis=0)
-                    y = np.concatenate((y, Y), axis=0)
+                    x = np.concatenate((x, [X]), axis=0)
+                    y = np.concatenate((y, [Y]), axis=0)
 
         # for i in range(5):
         #     f = open('./data_set/'+folder_name+'/data_batch_' + str(i + 1), 'rb')
@@ -85,8 +85,8 @@ def get_data_set(name="train"):
                     x = [X]
                     y = [Y]
                 else:
-                    x = np.concatenate((x, X), axis=0)
-                    y = np.concatenate((y, Y), axis=0)
+                    x = np.concatenate((x, [X]), axis=0)
+                    y = np.concatenate((y, [Y]), axis=0)
     # elif name is "test":
     #     f = open('./data_set/'+folder_name+'/test_batch', 'rb')
     #     datadict = pickle.load(f, encoding='latin1')
