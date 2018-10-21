@@ -57,7 +57,7 @@ def model():
         drop = tf.layers.dropout(pool, rate=0.3, name=scope.name)
 
     with tf.variable_scope('fully_connected_layer') as scope:
-        flat = tf.reshape(drop, [-1, 4 * 4 * 128])
+        flat = tf.reshape(drop, [-1, 4 * 4 * 256])
 
         fc = tf.layers.dense(inputs=flat, units=1500, activation=tf.nn.relu)
         drop = tf.layers.dropout(fc, rate=0.5)
