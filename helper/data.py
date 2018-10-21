@@ -32,7 +32,7 @@ def get_data_set(name="train"):
     #f.close()
 
     if name is "train":
-        for file in os.listdir("/cifar/train"):
+        for file in os.listdir("cifar/train"):
             if file.endswith(".png"):
                 X = scipy.misc.imread(file)
                 X = X.astype(float)
@@ -70,7 +70,7 @@ def get_data_set(name="train"):
         #         x = np.concatenate((x, X), axis=0)
         #         y = np.concatenate((y, Y), axis=0)
     elif name is "test":
-        for file in os.listdir("/cifar/test"):
+        for file in os.listdir("cifar/test"):
             if file.endswith(".png"):
                 X = scipy.misc.imread(file)
                 X = X.astype(float)
