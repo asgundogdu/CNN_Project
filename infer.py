@@ -84,7 +84,7 @@ def restore_see_layer(ix,model_name=None,var_name=None):
                 # saver.restore(s,model_name)
                 #saver.restore(s,'model/trial4/-25024.data-00000-of-00001') 
                 saver.restore(s,tf.train.latest_checkpoint('model/trial4/')) 
-                fd={'x:0':ix}#,'train_test:0':False}
+                fd={'Input:0':ix}#,'train_test:0':False}
                 var_name=var_name+":0"
                 result = s.run(var_name,feed_dict=fd)
     return result
