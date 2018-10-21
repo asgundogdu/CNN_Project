@@ -70,7 +70,7 @@ def get_activations(im, var_name = "conv1_layer/conv2d/Conv2D"):
 
     base_model = 'model/trial4'
 
-    output_cl1 = restore_see_layer(ix=test_img,model_name=base_model,var_name='conv1_layer/conv2d/Conv2D')
+    output_cl1 = restore_see_layer(ix=image,model_name=base_model,var_name='conv1_layer/conv2d/Conv2D')
     print(output_cl1.shape)
 
 
