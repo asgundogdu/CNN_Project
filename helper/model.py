@@ -26,14 +26,6 @@ def model():
             padding='SAME',
             activation=tf.nn.relu
         )
-        # conv = tf.layers.conv2d(
-        #     inputs=conv,
-        #     filters=64,
-        #     kernel_size=[4, 4],
-        #     strides=(1, 1),
-        #     padding='SAME',
-        #     activation=tf.nn.relu
-        # )
         conv = tf.layers.conv2d(
             inputs=conv,
             filters=64,
